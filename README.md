@@ -12,4 +12,4 @@ Just run services via `docker-compose`. Client will run on `localhost:8000`, ser
 docker-compose up
 ```
 
-After that, open the browser and look up `localhost:8000`.
+After that, open the browser and look up `localhost:8000/index.html`.
