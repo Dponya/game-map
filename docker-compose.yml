@@ -10,7 +10,5 @@ services:
     command: php -S 0.0.0.0:4000 -t /app
   client:
     build: .
-    volumes:
-      - ./:/app
     ports:
       - 8000:8000

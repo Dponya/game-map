@@ -1,6 +1,7 @@
 FROM codesimple/elm:0.19
+COPY ./client ./app
+
 WORKDIR ./app
 
-WORKDIR ./client
-CMD ["make",  "src/Main.elm", "--output=main.js"]
+RUN elm make src/Main.elm --output=main.js
 CMD ["reactor"]
