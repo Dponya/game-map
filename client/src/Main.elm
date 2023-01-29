@@ -4,12 +4,12 @@ import Browser
 import Html exposing(Html)
 import Color exposing (black)
 import Collage exposing (..)
-import Collage.Layout exposing (at, topLeft, center, bottom, align, top, base, impose)
+import Collage.Layout exposing (at, base)
 import Collage.Render exposing (svg)
-import Json.Decode exposing (field, Decoder, string, map2, decodeValue, float, list)
+import Json.Decode exposing (field, Decoder, map2, float, list)
 import Http
 
-main : Program () Model Msg
+main : Program String Model Msg
 main = Browser.element
   { init = init
   , view = view
@@ -38,7 +38,7 @@ entityDecoder = list
 gameMapDecoder : Decoder GameMap
 gameMapDecoder = map2 GameMap
   (field "size" float)
-  (field "entities" entityDecoder) 
+  (field "entities" entityDecoder)
 
 -- UPDATE
 
@@ -54,11 +54,11 @@ update msg model =
 
 -- INITIAL MODEL
 
-init : () -> (Model, Cmd Msg)
-init _ =
+init : String -> (Model, Cmd Msg)
+init host =
   ( Success (GameMap 0 [])
   , Http.request 
-      { url = "http://localhost:4000/"
+      { url = host
       , expect = Http.expectJson GotMap gameMapDecoder 
       , method = "GET"
       , headers = [Http.header "Token" "12345"]
